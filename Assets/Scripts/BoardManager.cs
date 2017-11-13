@@ -36,6 +36,7 @@ public class BoardManager : MonoBehaviour {
 
     void InitialiseList()
     {
+        // set up the inner area of the board, leaving the border and the immediate ring next to the border free
         _gridPositions.Clear();
         for (int x = 1; x < colums - 1; x++)
         {
@@ -53,11 +54,14 @@ public class BoardManager : MonoBehaviour {
         {
             for (int y = -1; y < rows + 1; y++)
             {
+                // set all floor area including the border to floor tile
                 GameObject toInstantiate = FloorTiles[Random.Range(0, FloorTiles.Length)];
                 if (x == -1 || x == colums || y == -1 || y == rows)
                 {
+                    // over-write the boder with border tile
                     toInstantiate = OuterWallTiles[Random.Range(0, OuterWallTiles.Length)];
                 }
+                // actually creating the floor layout with correct floor/border tile
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0.0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(_boardholder);
             }
@@ -66,6 +70,7 @@ public class BoardManager : MonoBehaviour {
 
     Vector3 RandomPosition()
     {
+        // helper function to pick a random position within the inner area to assign other items, enemy, food etc.
         int randIndex = Random.Range(0, _gridPositions.Count);
         Vector3 result_randPosition = _gridPositions[randIndex];
         _gridPositions.RemoveAt(randIndex);
@@ -75,6 +80,7 @@ public class BoardManager : MonoBehaviour {
 
     void LayoutObjAtRandom(GameObject[] tileArr, int min, int max)
     {
+        // set how many items to put on board
         int objCount = Random.Range(min, max + 1);
         for (int i = 0; i < objCount; i++)
         {
