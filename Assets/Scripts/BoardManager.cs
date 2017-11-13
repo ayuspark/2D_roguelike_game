@@ -15,7 +15,7 @@ public class BoardManager : MonoBehaviour {
         public Count(int min, int max)
         {
             Min = min;
-            Max = min;
+            Max = max;
         }
     }
 
@@ -82,6 +82,7 @@ public class BoardManager : MonoBehaviour {
     {
         // set how many items to put on board
         int objCount = Random.Range(min, max + 1);
+
         for (int i = 0; i < objCount; i++)
         {
             Vector3 randPosition = RandomPosition();
